@@ -1,0 +1,2 @@
+SUBSYSTEM=="input", ATTRS{name}=="Integrated keyboard", ENV{ID_INPUT}="1", ENV{ID_INPUT_KEYBOARD}="1"
+
