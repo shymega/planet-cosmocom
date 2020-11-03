@@ -50,6 +50,9 @@ fi
 #mount -o bind /android/system /var/lib/lxc/android/rootfs/system
 mount -o bind /opt/halium-overlay/vendor/lib64/libmtk-ril.so /vendor/lib64/libmtk-ril.so
 
+# /mnt can be used for device-specific mountpoints, workaround r/o rootfs
+mount -t tmpfs tmpfs /mnt
+
 sys_persist="/sys/firmware/devicetree/base/firmware/android/fstab/persist"
 if [ -e $sys_persist ]; then
     label=$(cat $sys_persist/dev | awk -F/ '{print $NF}')
@@ -58,6 +61,7 @@ if [ -e $sys_persist ]; then
     type=$(cat $sys_persist/type)
     options=$(parse_mount_flags $(cat $sys_persist/mnt_flags))
     echo "mounting $path as /mnt/vendor/persist"
+    mkdir -p /mnt/vendor/persist
     mount $path /mnt/vendor/persist -t $type -o $options
 fi
 
