@@ -43,9 +43,6 @@ if [ -n "$deviceinfo_kernel_apply_overlay" ] && $deviceinfo_kernel_apply_overlay
     "$SCRIPT/build-ufdt-apply-overlay.sh" "${TMPDOWN}"
 fi
 
-sed -i -e "s/extern test_right_usb/extern int test_right_usb/g" "$TMPDOWN/cosmo-linux-kernel-4.4/drivers/usb/gadget/configfs.c"
-sed -i -e 's/printk("===zhaolong====CC1/printk("%s===zhaolong====CC1/g' "$TMPDOWN/cosmo-linux-kernel-4.4/drivers/misc/mediatek/usb_c/fusb302/usb_typec.c"
-
 if [ -n "$deviceinfo_kernel_clang_compile" ] && $deviceinfo_kernel_clang_compile; then
     CC=clang \
     CLANG_TRIPLE=${deviceinfo_arch}-linux-gnu- \
